@@ -13,6 +13,7 @@
 
     main{
         height: 100%;
+        align-content: center;
         }
 
     body{
@@ -25,7 +26,6 @@
         background-color: #E6D5BD;
         width: 100%;
         height: 5%;
-        margin-bottom: 1em;
     }
 
     .content{
@@ -53,6 +53,17 @@
         display: none;
     }
 
+    #map{
+        position: static;
+        width: 100%;
+        height: 60%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    canvas[style]{
+        position: static !important;
+    }
 }
 
 title{
