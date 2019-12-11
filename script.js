@@ -550,13 +550,15 @@ function getResults(url, latitude, longitude){
         }
         throw new Error(response.statusText);
       })
-      .then(responseJson => displayResults(responseJson));
-      
+      //.then(responseJson => console.log(responseJson))
+      .then(responseJson => displayResults(responseJson));       
 }
 
 function displayResults(response){
     response[0].data.forEach(item => console.log(item));
     $('#popup').empty();
+    $('#popup').append(`<h1>${response[0].station_information.name}</h1>
+    <h2>Elevation: ${response[0].station_information.elevation}   Location: ${response[0].station_information.location.lat}, ${response[0].station_information.location.lng}</h2>`)
     response[0].data.forEach(item => {
         $('#popup').append('<ul>');
         Object.keys(item).forEach(key => {

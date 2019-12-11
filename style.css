@@ -30,6 +30,7 @@
     }
     .container{
         background-color: #5C828B;
+        color: white;
     }
     header{
         background-color: #E6D5BD;
@@ -115,6 +116,7 @@ main{
     }
     .container{
         background-color: #5C828B;
+        color: white;
     }
     header{
         background-color: #E6D5BD;
@@ -157,11 +159,11 @@ main{
     }
 
     .mapboxgl-ctrl-bottom-right{
-        top: 5%;
+        top: 1.5em;
     }
 
     .mapboxgl-ctrl-bottom-left{
-        top: 5%;
+        top: 1.5em;
     }
     canvas[style]{
         position: static !important;
