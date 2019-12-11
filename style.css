@@ -87,3 +87,82 @@
 title{
     display: none;
 }
+
+* {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+#popup{
+    overflow-y:auto;
+}
+
+html, body{
+    background-color: #141F29;
+    height: 100%;
+    width: 100%;
+}
+
+main{
+    height: 100%;
+    align-content: center;
+    }
+
+    
+    body{
+        margin: 0;
+    }
+    .container{
+        background-color: #5C828B;
+    }
+    header{
+        background-color: #E6D5BD;
+        width: 100%;
+        height: 1em;
+    }
+
+    .content{
+        margin: 1em auto 2em auto;
+        width: 95%;
+        overflow-y:auto;
+
+    }
+
+    footer{
+        position: absolute;
+        background-color: #E6D5BD;
+        height: 1em;
+        width: 100%;
+        align-self: flex-end;
+        bottom: 0;
+    }
+
+    .blog{
+        width: 95%;
+        background-color: #E6D5BD;
+        margin-top: .5em;
+        margin-bottom: .5em;
+    }
+    aside{
+        display: none;
+    }
+
+    #map{
+        position: static;
+        width: 100%;
+        height: 60%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mapboxgl-ctrl-bottom-right{
+        top: 5%;
+    }
+
+    .mapboxgl-ctrl-bottom-left{
+        top: 5%;
+    }
+    canvas[style]{
+        position: static !important;
+    }
