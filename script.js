@@ -526,9 +526,9 @@ map.on('click', 'snotel', function (e) {
             console.log(coordinates);
             let longitude = coordinates[0];
             let latitude = coordinates[1];
-            let url = 'http://api.powderlin.es/closest_stations?lat=' + `${latitude}` + '&lng=' + `${longitude}` + '&data=true&count=1&days=3';
-            console.log(url);
-            getResults(url, latitude, longitude);
+            console.log(latitude.toFixed(3));
+            getSnotelResults(latitude, longitude);
+            getForecast(latitude, longitude);
 });
              
             // Change the cursor to a pointer when the mouse is over the places layer.
@@ -541,8 +541,10 @@ map.on('mouseleave', 'snotel', function () {
     map.getCanvas().style.cursor = '';
 });
 
-function getResults(url, latitude, longitude){
+function getSnotelResults(latitude, longitude){
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    const url = 'http://api.powderlin.es/closest_stations?lat=' + `${latitude}` + '&lng=' + `${longitude}` + '&data=true&count=1&days=3';
+
     fetch(proxyurl + url)
     .then(response => {
         if (response.ok) {
@@ -551,10 +553,10 @@ function getResults(url, latitude, longitude){
         throw new Error(response.statusText);
       })
       //.then(responseJson => console.log(responseJson))
-      .then(responseJson => displayResults(responseJson));       
+      .then(responseJson => displaySnotelResults(responseJson));       
 }
 
-function displayResults(response){
+function displaySnotelResults(response){
     response[0].data.forEach(item => console.log(item));
     $('#popup').empty();
     $('#popup').append(`<h1>${response[0].station_information.name}</h1>
@@ -567,4 +569,40 @@ function displayResults(response){
         $('#popup').append('</ul>');
     });
 
+}
+
+function getForecast(latitude, longitude){
+ let id = 'b9d28e99';
+ let key = '512ca156fa4a85d2cae8cadd37fab6d1';
+
+let url = `http://api.weatherunlocked.com/api/forecast/${latitude.toFixed(3)},${longitude.toFixed(3)}?app_id=${id}&app_key=${key}`;
+console.log(url);
+
+fetch(url)
+.then(response => {
+    if (response.ok) {
+    return response.json();
+  }
+  throw new Error(response.statusText);
+})
+.then(responseJson => displayForecast(responseJson));
+}
+
+function displayForecast(response){
+    const timeSeries = [];
+    response.Days.forEach(element => console.log(element.Timeframes.forEach(element => timeSeries.push(element))));
+    console.log(timeSeries);
+    const data = Object.values(response);
+
+    for(i=0; i < timeSeries.length; i+= 4){
+        let smallSeries = {};
+        smallSeries.date = timeSeries[i].date;
+        smallSeries.time = timeSeries[i].time;
+        smallSeries.precip_pct = timeSeries[i].prob_precip_pct;
+        smallSeries.temp = timeSeries[i].temp_f;
+        smallSeries.snow_total = timeSeries[i].snow_accum_in;
+        smallSeries.feelslike = timeSeries[i].feelslike_f;
+        console.log(smallSeries);
+    }
+    //const timeSeries = data.map
 }
