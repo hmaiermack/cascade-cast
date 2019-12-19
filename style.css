@@ -94,6 +94,7 @@
     }
 }
 
+@media(min-width: 1025px){
 title{
     display: none;
 }
@@ -105,14 +106,6 @@ title{
 h4{
     text-decoration: underline;
     margin: .1em 0 .2em 0;
-}
-
-* {
-    text-align: center;
-    font-family: 'Fjalla One', sans-serif;
-    display: flex;
-    box-sizing: border-box;
-    flex-direction: column;
 }
 
 #accordion{
@@ -188,6 +181,15 @@ canvas[style]{
 h1, h2{
         margin: 0;
     }
+}
+
+* {
+    text-align: center;
+    font-family: 'Fjalla One', sans-serif;
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+}
 
 ul{
         background-image: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2));
