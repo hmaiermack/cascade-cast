@@ -103,6 +103,9 @@ title{
     display: none;
 }
 
+p{
+    font-size: 2em;
+}
 .hidden{
     display: none;
 }

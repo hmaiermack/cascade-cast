@@ -1,10 +1,12 @@
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFpZXJtYWNrIiwiYSI6ImNrM3JvODA1ODA4Z2IzaHVoams2Zm41YTEifQ.Cb3O-AwARlOakYrbV9erjQ';
 
+//creates map
 var map = new mapboxgl.Map({
-container: 'map', // container id
+container: 'map', // html container id
 style: 'mapbox://styles/maiermack/ck3rxyctv0ekb1cou5g6cff9u',
 });
 
+//Adds SNOTEL location info to the map
 map.on('load', function () {
     // Add a layer showing the places.
     map.addLayer({
@@ -524,27 +526,28 @@ map.on('load', function () {
         });
 
 
+//When a SNOTEL point is clicked on the map takes lat/long from point and puts it into coordinates 
+//Display is done through getSnotelResults and getForecast
 map.on('click', 'snotel', function (e) {
             let coordinates = e.features[0].geometry.coordinates.slice();             
-            console.log(coordinates);
             let longitude = coordinates[0];
             let latitude = coordinates[1];
-            console.log(latitude.toFixed(3));
             getSnotelResults(latitude, longitude);
             getForecast(latitude, longitude);
             $('#accordion-box').removeClass('hidden');
 });
              
-            // Change the cursor to a pointer when the mouse is over the places layer.
+// Change the cursor to a pointer when the mouse is over the places layer.
 map.on('mouseenter', 'snotel', function () {
     map.getCanvas().style.cursor = 'pointer';
 });
              
-            // Change it back to a pointer when it leaves.
+// Change it back to a pointer when it leaves.
 map.on('mouseleave', 'snotel', function () {
     map.getCanvas().style.cursor = '';
 });
 
+//powderlin.es api call
 function getSnotelResults(latitude, longitude){
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     const url = 'http://api.powderlin.es/closest_stations?lat=' + `${latitude}` + '&lng=' + `${longitude}` + '&data=true&count=1&days=3';
@@ -556,12 +559,12 @@ function getSnotelResults(latitude, longitude){
         }
         throw new Error(response.statusText);
       })
-      //.then(responseJson => console.log(responseJson))
-      .then(responseJson => displaySnotelResults(responseJson));       
+      .then(responseJson => displaySnotelResults(responseJson))
+      .catch(error => console.log(error));       
 }
 
+//clears container and appends a div for SNOTEL weather data
 function displaySnotelResults(response){
-    response[0].data.forEach(item => console.log(item));
     $('#info').empty();
     $('#info').append(`<div><h1>${response[0].station_information.name}</h1>
     <h2>Elevation: ${response[0].station_information.elevation}   Location: ${response[0].station_information.location.lat}, ${response[0].station_information.location.lng}</h2></div>`);
@@ -581,31 +584,32 @@ function displaySnotelResults(response){
 
 
 
-
+//weatherunlocked api call
 function getForecast(latitude, longitude){
- let id = 'b9d28e99';
- let key = '512ca156fa4a85d2cae8cadd37fab6d1';
- const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    let id = 'b9d28e99';
+    let key = '512ca156fa4a85d2cae8cadd37fab6d1';
+    const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    //weatherunlocked only accepts 3 decimal places for lat/long inputs
+    let url = `//api.weatherunlocked.com/api/forecast/${latitude.toFixed(3)},${longitude.toFixed(3)}?app_id=${id}&app_key=${key}`;
 
-let url = `//api.weatherunlocked.com/api/forecast/${latitude.toFixed(3)},${longitude.toFixed(3)}?app_id=${id}&app_key=${key}`;
-console.log(url);
-
-fetch(proxyurl + url)
-.then(response => {
-    if (response.ok) {
-    return response.json();
-  }
-  throw new Error(response.statusText);
-})
-.then(responseJson => displayForecast(responseJson));
+    fetch(proxyurl + url)
+    .then(response => {
+        if (response.ok) {
+        return response.json();
+    }
+    throw new Error(response.statusText);
+    })
+    .then(responseJson => displayForecast(responseJson))
+    .catch(error => console.log(error));
 }
 
 function displayForecast(response){
     const timeSeries = [];
-    console.log(response);
-    response.Days.forEach(element => console.log(element.Timeframes.forEach(element => timeSeries.push(element))));
-    console.log(timeSeries);
+    //pushes object responses into an array allowing access more easily to deeply nested info
+    response.Days.forEach(element => element.Timeframes.forEach(element => timeSeries.push(element)));
     const condensedTimeSeries = [];
+    //don't need past forecast info or 7 days in advanced
+    //also decided against displaying every forecast per day, not that much info is necesarry
     for(i=4; i < timeSeries.length/2; i+= 2){
         let smallSeries = {};
         smallSeries.date = timeSeries[i].date;
@@ -616,17 +620,16 @@ function displayForecast(response){
         smallSeries.feelslike = timeSeries[i].feelslike_f;
         condensedTimeSeries.push(smallSeries);
     }
-    console.log(condensedTimeSeries);
     const dateInfo = {
         date: [],
     };
     let counter = 0;
     let key = null;
+
+    //loops through condensed time series, checking that there is only one key per date and pushing to the dateInfo object
     for(let i=0; i < condensedTimeSeries.length; i++){
-        console.log(dateInfo.date[counter] + ' ' + condensedTimeSeries[i].date);
         if(key != condensedTimeSeries[i].date){
             key = condensedTimeSeries[i].date;
-            console.log('key' + key);
             const newDate = {
                 [key]: {
                     time: {},
@@ -646,7 +649,7 @@ function displayForecast(response){
 function populateDateInfo(dateInfo, condensedTimeSeries){
 
     function getTime(dateInfo, condensedTimeSeries){
-        console.log('now running getTime');
+        //similar to dateInfo loop above but assigns time slot values to each particular date key
         let time = 0;
         let arrayCount = 0;
         let dayCount = 0;
@@ -663,14 +666,12 @@ function populateDateInfo(dateInfo, condensedTimeSeries){
                 arrayCount++;
             }
         }
-        console.log(dateInfo);
     }
     getTime(dateInfo, condensedTimeSeries);
 
 
     function getData(dateInfo, condensedTimeSeries){
-        console.log('now running getData');
-        
+        //see above, adds specific data to time slot key        
         let arrayCount = 0;
             for(let i=0; i < condensedTimeSeries.length; i++){
                 if(Object.keys(dateInfo.date[arrayCount]) == condensedTimeSeries[i].date){
@@ -682,7 +683,6 @@ function populateDateInfo(dateInfo, condensedTimeSeries){
                      arrayCount++;
                 }
         }
-        console.log(dateInfo);
     }
 
     getData(dateInfo, condensedTimeSeries);
@@ -690,8 +690,8 @@ function populateDateInfo(dateInfo, condensedTimeSeries){
 
 function makeForecast(dateInfo){
     $('#accordion2').empty();
+    //creates second accordion for forecasting data
     dateInfo.date.forEach((item, i=0) => {
-        console.log(i);
         let day = i;
         $('#accordion2').append(`<h3>${Object.keys(item)}</h3>
         <div id="day${day}"></div>`);     
@@ -710,11 +710,6 @@ function makeForecast(dateInfo){
             <li>Temperature: ${item[1].temp}</li>
             <li>Feels Like: ${item[1].feelslike}</li>
             <li>Snow Total: ${item[1].snow_total}</li>`);
-            /*hourlyInfo.forEach(item => {
-                console.log(item);
-                console.log(`appending: ${item} into #${timeInfo[i][0]}-${day}`);
-                $(`#${timeInfo[i][0]}-${day}`).append(`<li>${item}</li>`);
-            })*/
         })
 
     })
