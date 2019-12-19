@@ -1,7 +1,11 @@
 @media(max-width: 1024px){
-
     .hidden{
-        
+        display: none;
+    }
+    ul, li{
+        padding: 0 0 0 .5em;
+        text-align: left;
+        margin-top: 0;
     }
     
     * {
@@ -10,11 +14,19 @@
         flex-direction: column;
     }
 
-    #popup{
+    #snotel{
         overflow-y:auto;
     }
-
+    h2:after {
+        content: "";
+        display: block;
+        margin: 0 auto 1em auto;
+        border-bottom: 1px solid white;
+        width: 70%;
+      }
+      
     html, body{
+        justify-content: space-around;
         background-color: #141F29;
         height: 100%;
         width: 100%;
@@ -35,11 +47,11 @@
     header{
         background-color: #E6D5BD;
         width: 100%;
-        height: 1em;
+        height: 1.5em;
     }
 
     .content{
-        margin: 1em auto 2em auto;
+        margin: 1em auto 2.5em auto;
         width: 95%;
         overflow-y:auto;
 
@@ -48,7 +60,7 @@
     footer{
         position: absolute;
         background-color: #E6D5BD;
-        height: 1em;
+        height: 1.5em;
         width: 100%;
         align-self: flex-end;
         bottom: 0;
@@ -59,9 +71,6 @@
         background-color: #E6D5BD;
         margin-top: .5em;
         margin-bottom: .5em;
-    }
-    aside{
-        display: none;
     }
 
     #map{
@@ -89,13 +98,28 @@ title{
     display: none;
 }
 
+.hidden{
+    display: none;
+}
+
+h4{
+    text-decoration: underline;
+    margin: .1em 0 .2em 0;
+}
+
 * {
+    text-align: center;
+    font-family: 'Fjalla One', sans-serif;
     display: flex;
     box-sizing: border-box;
     flex-direction: column;
 }
 
-#popup{
+#accordion{
+    overflow-y:auto;
+}
+
+#snotel{
     overflow-y:auto;
 }
 
@@ -121,11 +145,11 @@ main{
     header{
         background-color: #E6D5BD;
         width: 100%;
-        height: 1em;
+        height: 1.5em;
     }
 
     .content{
-        margin: 1em auto 2em auto;
+        margin: 1em auto 2.5em auto;
         width: 95%;
         overflow-y:auto;
 
@@ -134,7 +158,7 @@ main{
     footer{
         position: absolute;
         background-color: #E6D5BD;
-        height: 1em;
+        height: 1.5em;
         width: 100%;
         align-self: flex-end;
         bottom: 0;
@@ -145,9 +169,6 @@ main{
         background-color: #E6D5BD;
         margin-top: .5em;
         margin-bottom: .5em;
-    }
-    aside{
-        display: none;
     }
 
     #map{
@@ -167,4 +188,44 @@ main{
     }
     canvas[style]{
         position: static !important;
+    }
+
+    h1, h2{
+        margin: 0;
+    }
+
+    ul{
+        background-image: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2));
+        margin: .5em 0 0 0;
+        padding: 0;
+    }
+
+    .ui-accordion-header-active{
+        background: rgba(255, 255, 255, 0.2);
+    }
+    .ui-accordion-header{
+        margin: 0 0 0 0;
+    }
+
+    .ui-accordion-header:hover{
+        background: rgba(255, 255, 255, 0.4);
+    }
+    #ui-id-3, #ui-id-4, #ui-id-5{
+        margin: .5em 0 0 0;
+    }
+    ::-webkit-scrollbar-track-piece{
+        display:none;
+    }
+
+    ::-webkit-scrollbar-button{
+        display:none;
+    }
+
+    ::-webkit-scrollbar{
+        height: 100%;
+    }
+
+    ::-webkit-scrollbar-thumb{
+        background: rgba(255, 255, 255, 0.1);
+        
     }

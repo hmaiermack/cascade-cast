@@ -529,6 +529,7 @@ map.on('click', 'snotel', function (e) {
             console.log(latitude.toFixed(3));
             getSnotelResults(latitude, longitude);
             getForecast(latitude, longitude);
+            $('#accordion').removeClass('hidden');
 });
              
             // Change the cursor to a pointer when the mouse is over the places layer.
@@ -558,18 +559,25 @@ function getSnotelResults(latitude, longitude){
 
 function displaySnotelResults(response){
     response[0].data.forEach(item => console.log(item));
-    $('#popup').empty();
-    $('#popup').append(`<h1>${response[0].station_information.name}</h1>
-    <h2>Elevation: ${response[0].station_information.elevation}   Location: ${response[0].station_information.location.lat}, ${response[0].station_information.location.lng}</h2>`)
-    response[0].data.forEach(item => {
-        $('#popup').append('<ul>');
-        Object.keys(item).forEach(key => {
-            $('#popup').append('<li>'+key+':'+item[key]+'</li>');
-        })
-        $('#popup').append('</ul>');
-    });
+    $('#info').empty();
+    $('#info').append(`<div><h1>${response[0].station_information.name}</h1>
+    <h2>Elevation: ${response[0].station_information.elevation}   Location: ${response[0].station_information.location.lat}, ${response[0].station_information.location.lng}</h2></div>`);
+    $('#snotel').empty();
+    $('#accordion').next('div').append(
+    response[0].data.forEach(item => { 
+        let ul = '<ul>';
+         Object.keys(item).forEach(key => {
+            ul += '<li>'+key+':'+item[key]+'</li>'; 
+        }) 
+        ul += '</ul>'; 
+        $('#snotel').append(ul);
+    })
+    )
+};
 
-}
+
+
+
 
 function getForecast(latitude, longitude){
  let id = 'b9d28e99';
@@ -590,11 +598,11 @@ fetch(url)
 
 function displayForecast(response){
     const timeSeries = [];
+    console.log(response);
     response.Days.forEach(element => console.log(element.Timeframes.forEach(element => timeSeries.push(element))));
     console.log(timeSeries);
-    const data = Object.values(response);
-
-    for(i=0; i < timeSeries.length; i+= 4){
+    const condensedTimeSeries = [];
+    for(i=4; i < timeSeries.length/2; i+= 2){
         let smallSeries = {};
         smallSeries.date = timeSeries[i].date;
         smallSeries.time = timeSeries[i].time;
@@ -602,7 +610,124 @@ function displayForecast(response){
         smallSeries.temp = timeSeries[i].temp_f;
         smallSeries.snow_total = timeSeries[i].snow_accum_in;
         smallSeries.feelslike = timeSeries[i].feelslike_f;
-        console.log(smallSeries);
+        condensedTimeSeries.push(smallSeries);
     }
-    //const timeSeries = data.map
+    console.log(condensedTimeSeries);
+    const dateInfo = {
+        date: [],
+    };
+    let counter = 0;
+    let key = null;
+    for(let i=0; i < condensedTimeSeries.length; i++){
+        console.log(dateInfo.date[counter] + ' ' + condensedTimeSeries[i].date);
+        if(key != condensedTimeSeries[i].date){
+            key = condensedTimeSeries[i].date;
+            console.log('key' + key);
+            const newDate = {
+                [key]: {
+                    time: {},
+                },
+            }
+            dateInfo.date.push(newDate);
+        }
+        else{
+            counter++;
+        }
+        
+    }
+    populateDateInfo(dateInfo, condensedTimeSeries);
+    makeForecast(dateInfo);
 }
+
+function populateDateInfo(dateInfo, condensedTimeSeries){
+
+    function getTime(dateInfo, condensedTimeSeries){
+        console.log('now running getTime');
+        let time = 0;
+        let arrayCount = 0;
+        let dayCount = 0;
+            for(let i=0; i < condensedTimeSeries.length; i++){
+                if(Object.keys(dateInfo.date[arrayCount]) == condensedTimeSeries[i].date){
+                  time = condensedTimeSeries[i].time;
+                   const newTime = {
+                     [time]: {},
+                 }
+                    $.extend(dateInfo.date[arrayCount][condensedTimeSeries[i].date].time, newTime);
+                    
+            }
+            else{
+                arrayCount++;
+            }
+        }
+        console.log(dateInfo);
+    }
+    getTime(dateInfo, condensedTimeSeries);
+
+
+    function getData(dateInfo, condensedTimeSeries){
+        console.log('now running getData');
+        
+        let arrayCount = 0;
+            for(let i=0; i < condensedTimeSeries.length; i++){
+                if(Object.keys(dateInfo.date[arrayCount]) == condensedTimeSeries[i].date){
+                  $.extend(dateInfo.date[arrayCount][condensedTimeSeries[i].date].time[condensedTimeSeries[i].time], condensedTimeSeries[i]);
+                  delete dateInfo.date[arrayCount][condensedTimeSeries[i].date].time[condensedTimeSeries[i].time].date;
+                  delete dateInfo.date[arrayCount][condensedTimeSeries[i].date].time[condensedTimeSeries[i].time].time;
+                 }                                
+                else{
+                     arrayCount++;
+                }
+        }
+        console.log(dateInfo);
+    }
+
+    getData(dateInfo, condensedTimeSeries);
+}
+
+function makeForecast(dateInfo){
+    $('#accordion2').empty();
+    dateInfo.date.forEach((item, i=0) => {
+        console.log(i);
+        let day = i;
+        $('#accordion2').append(`<h3>${Object.keys(item)}</h3>
+        <div id="day${day}"></div>`);     
+        
+        let timeStamp = Object.keys(dateInfo.date[i][Object.keys(item)].time);
+
+        timeStamp.forEach(item => {
+            $(`#day${day}`).append(`<ul id="${item}-${day}"><h4>Time: ${item}</h4></ul>`);
+        })
+
+        let timeInfo = Object.entries(dateInfo.date[i][Object.keys(item)].time);
+        timeInfo.forEach((item, i=0) => {
+
+            hourlyInfo = Object.values(item[1]);
+            $(`#${timeInfo[i][0]}-${day}`).append(`<li>Precipitation: ${item[1].precip_pct}%</li>
+            <li>Temperature: ${item[1].temp}</li>
+            <li>Feels Like: ${item[1].feelslike}</li>
+            <li>Snow Total: ${item[1].snow_total}</li>`);
+            /*hourlyInfo.forEach(item => {
+                console.log(item);
+                console.log(`appending: ${item} into #${timeInfo[i][0]}-${day}`);
+                $(`#${timeInfo[i][0]}-${day}`).append(`<li>${item}</li>`);
+            })*/
+        })
+
+    })
+    $( "#accordion2" ).accordion('refresh');
+
+}
+
+$(function() {
+    $('#accordion').accordion({
+        heightStyle: 'content'
+    });
+    $( "#accordion" ).accordion('refresh');
+
+ });
+
+ $(function(){
+ $('#accordion2').accordion({
+    heightStyle: 'content'
+});
+});
