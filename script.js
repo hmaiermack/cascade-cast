@@ -582,11 +582,12 @@ function displaySnotelResults(response){
 function getForecast(latitude, longitude){
  let id = 'b9d28e99';
  let key = '512ca156fa4a85d2cae8cadd37fab6d1';
+ const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
-let url = `http://api.weatherunlocked.com/api/forecast/${latitude.toFixed(3)},${longitude.toFixed(3)}?app_id=${id}&app_key=${key}`;
+let url = `https://api.weatherunlocked.com/api/forecast/${latitude.toFixed(3)},${longitude.toFixed(3)}?app_id=${id}&app_key=${key}`;
 console.log(url);
 
-fetch(url)
+fetch(proxyurl + url)
 .then(response => {
     if (response.ok) {
     return response.json();
