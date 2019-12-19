@@ -1,5 +1,5 @@
 @media(max-width: 1024px){
-    .hidden{
+    .hidden, title{
         display: none;
     }
     ul, li{
@@ -90,6 +90,7 @@
 
     #accordion, #accordion2{
         overflow-y: auto;
+        display: block;
     }
 
     #info{

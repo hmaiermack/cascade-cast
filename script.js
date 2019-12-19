@@ -529,7 +529,7 @@ map.on('click', 'snotel', function (e) {
             console.log(latitude.toFixed(3));
             getSnotelResults(latitude, longitude);
             getForecast(latitude, longitude);
-            $('#accordion').removeClass('hidden');
+            $('.hidden').removeClass('hidden');
 });
              
             // Change the cursor to a pointer when the mouse is over the places layer.
