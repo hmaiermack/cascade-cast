@@ -135,27 +135,28 @@ main{
     }
 
     
-    body{
+body{
         margin: 0;
     }
-    .container{
+
+.container{
         background-color: #5C828B;
         color: white;
     }
-    header{
+header{
         background-color: #E6D5BD;
         width: 100%;
         height: 1.5em;
     }
 
-    .content{
+.content{
         margin: 1em auto 2.5em auto;
         width: 95%;
         overflow-y:auto;
 
     }
 
-    footer{
+footer{
         position: absolute;
         background-color: #E6D5BD;
         height: 1.5em;
@@ -164,14 +165,7 @@ main{
         bottom: 0;
     }
 
-    .blog{
-        width: 95%;
-        background-color: #E6D5BD;
-        margin-top: .5em;
-        margin-bottom: .5em;
-    }
-
-    #map{
+#map{
         position: static;
         width: 100%;
         height: 60%;
@@ -179,53 +173,57 @@ main{
         justify-content: center;
     }
 
-    .mapboxgl-ctrl-bottom-right{
+.mapboxgl-ctrl-bottom-right{
         top: 1.5em;
     }
 
-    .mapboxgl-ctrl-bottom-left{
+.mapboxgl-ctrl-bottom-left{
         top: 1.5em;
     }
-    canvas[style]{
+
+canvas[style]{
         position: static !important;
     }
 
-    h1, h2{
+h1, h2{
         margin: 0;
     }
 
-    ul{
+ul{
         background-image: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2));
         margin: .5em 0 0 0;
         padding: 0;
     }
 
-    .ui-accordion-header-active{
+.ui-accordion-header-active{
         background: rgba(255, 255, 255, 0.2);
     }
-    .ui-accordion-header{
+
+.ui-accordion-header{
         margin: 0 0 0 0;
     }
 
-    .ui-accordion-header:hover{
+.ui-accordion-header:hover{
         background: rgba(255, 255, 255, 0.4);
     }
-    #ui-id-3, #ui-id-4, #ui-id-5{
+
+#ui-id-3, #ui-id-4, #ui-id-5{
         margin: .5em 0 0 0;
     }
-    ::-webkit-scrollbar-track-piece{
+
+::-webkit-scrollbar-track-piece{
         display:none;
     }
 
-    ::-webkit-scrollbar-button{
+::-webkit-scrollbar-button{
         display:none;
     }
 
-    ::-webkit-scrollbar{
+::-webkit-scrollbar{
         height: 100%;
     }
 
-    ::-webkit-scrollbar-thumb{
+::-webkit-scrollbar-thumb{
         background: rgba(255, 255, 255, 0.1);
         
     }

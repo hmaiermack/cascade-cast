@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel='stylesheet' href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.1/mapbox-gl.css'>
     <link href="https://fonts.googleapis.com/css?family=Fjalla+One&display=swap" rel="stylesheet">
@@ -17,7 +18,7 @@
             <div class="content container">
                 <div id="info"><h1>How to use:</h1>
                     <p>Each point on the map represents a SNOTEL weather measuring station. SNOTEL is an automated system of snowpack and related climate sensors operated by the Natural Resources
-                        Conservation Service of the United States Department of Agriculture in the Western United StatesBy selecting one of the points you can see recent weather data about
+                        Conservation Service of the United States Department of Agriculture in the Western United States. By selecting one of the points you can see recent weather data about
                         that station.
                         <br>
                         Click on a point to recieve the most recent SNOTEL reports from the station as well as forecasting information for that location.
@@ -46,5 +47,6 @@
   src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"
   integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30="
   crossorigin="anonymous"></script>
-<script src="script.js"></script>
+  <script src="jquery.ui.touch-punch.min.js"></script>
+  <script src="script.js"></script>
 </html>
