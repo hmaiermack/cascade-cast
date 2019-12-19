@@ -10,6 +10,9 @@ map.on('load', function () {
     map.addLayer({
             "id": "snotel",
             "type": "circle",
+            "paint": {
+                "circle-radius": 7
+            },
             "source": {
                 "type": "geojson",
                 "data": {
