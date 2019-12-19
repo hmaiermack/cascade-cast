@@ -6,6 +6,7 @@
         padding: 0 0 0 .5em;
         text-align: left;
         margin-top: 0;
+        list-style: none;
     }
     
     * {
@@ -67,13 +68,6 @@
         bottom: 0;
     }
 
-    .blog{
-        width: 95%;
-        background-color: #E6D5BD;
-        margin-top: .5em;
-        margin-bottom: .5em;
-    }
-
     #map{
         position: static;
         width: 100%;
@@ -92,6 +86,11 @@
 
     canvas[style]{
         position: static !important;
+    }
+
+    #accordion, #accordion2{
+        overflow-y: auto;
+        display: block;
     }
 }
 
