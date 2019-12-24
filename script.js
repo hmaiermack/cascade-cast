@@ -1,3 +1,5 @@
+
+function buildMap(){
 mapboxgl.accessToken = 'pk.eyJ1IjoibWFpZXJtYWNrIiwiYSI6ImNrM3JvODA1ODA4Z2IzaHVoams2Zm41YTEifQ.Cb3O-AwARlOakYrbV9erjQ';
 
 //creates map
@@ -15,6 +17,7 @@ map.on('load', function () {
             "paint": {
                 "circle-radius": 7
             },
+            "trackResize": "false",
             "source": {
                 "type": "geojson",
                 "data": {
@@ -547,6 +550,8 @@ map.on('mouseleave', 'snotel', function () {
     map.getCanvas().style.cursor = '';
 });
 
+}
+
 //powderlin.es api call
 function getSnotelResults(latitude, longitude){
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
@@ -563,13 +568,13 @@ function getSnotelResults(latitude, longitude){
       .catch(error => console.log(error));       
 }
 
-//clears container and appends a div for SNOTEL weather data
+//clears container and appends a section for SNOTEL weather data
 function displaySnotelResults(response){
     $('#info').empty();
     $('#info').append(`<div><h1>${response[0].station_information.name}</h1>
     <h2>Elevation: ${response[0].station_information.elevation}   Location: ${response[0].station_information.location.lat}, ${response[0].station_information.location.lng}</h2></div>`);
     $('#snotel').empty();
-    $('#accordion').next('div').append(
+    $('#accordion').next('section').append(
     response[0].data.forEach(item => { 
         let ul = '<ul>';
          Object.keys(item).forEach(key => {
@@ -694,7 +699,7 @@ function makeForecast(dateInfo){
     dateInfo.date.forEach((item, i=0) => {
         let day = i;
         $('#accordion2').append(`<h3>${Object.keys(item)}</h3>
-        <div id="day${day}"></div>`);     
+        <section id="day${day}"></section>`);     
         
         let timeStamp = Object.keys(dateInfo.date[i][Object.keys(item)].time);
 
@@ -717,16 +722,18 @@ function makeForecast(dateInfo){
 
 }
 
+
+
 $(function() {
+    buildMap();
     $('#accordion').accordion({
-        heightStyle: 'content'
+        heightStyle: 'content',
     });
     $( "#accordion" ).accordion('refresh');
-
- });
-
- $(function(){
- $('#accordion2').accordion({
-    heightStyle: 'content'
-});
-});
+    $('#accordion2').accordion({
+        heightStyle: 'content'
+    });
+    $('#forecast').accordion({
+        icons: { "header": "ui-icon-caret-1-s", "activeHeader": "ui-icon-caret-1-n" }
+    })
+})

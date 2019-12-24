@@ -14,27 +14,30 @@
     <main>
         
             <header>Cascade Cast</header>
-            <div id="map"></div>
-            <div class="content container">
+            <section id="map"></section>
+            <section class="content container">
                 <div id="info"><h1>How to use:</h1>
                     <p>Each point on the map represents a SNOTEL weather measuring station. SNOTEL is an automated system of snowpack and related climate sensors operated by the Natural Resources
-                        Conservation Service of the United States Department of Agriculture in the Western United States. By selecting one of the points you can see recent weather data about
-                        that station.
-                        <br>
+                        Conservation Service of the United States Department of Agriculture in the Western United States.
+                        <br><br>
                         Click on a point to recieve the most recent SNOTEL reports from the station as well as forecasting information for that location.
                     </p>
                 </div>
-                <div id ="accordion-box" class="hidden">
-                    <div id="accordion">
+                <section id ="accordion-box" class="hidden" aria-live="polite">
+                    <section id="accordion">
+                        <section id="snotel-container">
                         <h3>SNOTEL</h3>
-                        <div id="snotel"></div>
+                        <section id="snotel"></section>
+                        </section>
+                        <section id="forecast-container">
                         <h3>Forecast</h3>
-                        <div id="forecast">
-                            <div id="accordion2"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        <section id="forecast">
+                            <section id="accordion2"></section>
+                        </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
             <footer><a href="mailto:hmaiermack@gmail.com">Contact Us</a></footer>
         
     </main>
