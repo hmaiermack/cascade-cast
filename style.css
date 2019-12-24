@@ -88,12 +88,11 @@
     }
 
     #accordion, #accordion2{
-        overflow-y: auto;
+        overflow-y: visible;
         display: block;
     }
 
     #info{
-        overflow-y: auto;
         display: block;
     }
 }
