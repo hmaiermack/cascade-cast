@@ -40,7 +40,7 @@
         margin: 0;
     }
     .container{
-        
+        overflow-y: visible;
         background-color: #5C828B;
         color: white;
     }
