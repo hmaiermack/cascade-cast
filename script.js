@@ -532,6 +532,7 @@ map.on('load', function () {
 //When a SNOTEL point is clicked on the map takes lat/long from point and puts it into coordinates 
 //Display is done through getSnotelResults and getForecast
 map.on('click', 'snotel', function (e) {
+    // implement highlight on currently selected point on map
             let coordinates = e.features[0].geometry.coordinates.slice();             
             let longitude = coordinates[0];
             let latitude = coordinates[1];
@@ -572,7 +573,8 @@ function getSnotelResults(latitude, longitude){
 function displaySnotelResults(response){
     $('#info').empty();
     $('#info').append(`<div><h1>${response[0].station_information.name}</h1>
-    <h2>Elevation: ${response[0].station_information.elevation}   Location: ${response[0].station_information.location.lat}, ${response[0].station_information.location.lng}</h2></div>`);
+    <h2>Elevation: ${response[0].station_information.elevation}   
+    Location: ${response[0].station_information.location.lat}, ${response[0].station_information.location.lng}</h2></div>`);
     $('#snotel').empty();
     $('#accordion').next('section').append(
     response[0].data.forEach(item => { 
@@ -722,10 +724,7 @@ function makeForecast(dateInfo){
 
 }
 
-
-
-$(function() {
-    buildMap();
+function makeAccordion(){
     $('#accordion').accordion({
         heightStyle: 'content',
     });
@@ -733,7 +732,12 @@ $(function() {
     $('#accordion2').accordion({
         heightStyle: 'content'
     });
-    $('#forecast').accordion({
+    $('#forecast2').accordion({
         icons: { "header": "ui-icon-caret-1-s", "activeHeader": "ui-icon-caret-1-n" }
-    })
+    });
+}
+
+$(function() {
+    buildMap();
+    makeAccordion();
 })
