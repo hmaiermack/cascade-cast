@@ -1,7 +1,9 @@
 @media(max-width: 1024px){
+    
     .hidden, title{
         display: none;
     }
+
     ul, li{
         padding: 0 0 0 .5em;
         text-align: left;
@@ -40,11 +42,17 @@
     body{
         margin: 0;
     }
+
     .container{
         overflow-y: visible;
         background: #5C828B;
         color: white;
     }
+
+    #accordion-box{
+        background:#5C828B;
+    }
+
     header{
         background-color: #E6D5BD;
         width: 100%;
@@ -75,6 +83,7 @@
         align-items: center;
         justify-content: center;
     }
+
     .mapboxgl-ctrl-bottom-right{
         top: 5%;
     }
@@ -98,6 +107,7 @@
 }
 
 @media(min-width: 1025px){
+
     title{
         display: none;
     }
@@ -105,6 +115,7 @@
     p{
         font-size: 2em;
     }
+
     .hidden{
         display: none;
     }
@@ -134,6 +145,7 @@
             background-color: #5C828B;
             color: white;
         }
+
     header{
             background-color: #E6D5BD;
             width: 100%;
@@ -178,20 +190,20 @@
             margin: 0;
         }
 
-        #accordion{
-            flex-direction: row;
-        }
+    #accordion{
+        flex-direction: row;
+    }
 
-        #snotel-container, #forecast-container{
-            width: 40%;
-            margin: .5em auto .5em auto;
-            border: 1px solid white;
-        }
+    #snotel-container, #forecast-container{
+        width: 40%;
+        margin: .5em auto .5em auto;
+        border: 1px solid white;
+    }
 
-        li{
-            text-align: left;
-            margin-left: .5em;
-        }
+    li{
+        text-align: left;
+        margin-left: .5em;
+    }
 
 }
 
@@ -208,40 +220,46 @@
 }
 
 ul{
-        background-image: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2));
-        margin: 0 0 .5em 0;
-        padding: 0;
-    }
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2));
+    margin: 0 0 .5em 0;
+    padding: 0;
+}
 
 #accordion2 > .ui-accordion-header{
-        margin: 0 1em .5em 1em;
-    }
+    margin: 0 1em .5em 1em;
+}
 
 #accordion2 > .ui-accordion-header:hover{
-        background: rgba(255, 255, 255, 0.4);
-        cursor: pointer;
-    }
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+}
 
 #accordion2 > .ui-accordion-header-active{
-        background: rgba(255, 255, 255, 0.2);
-        border: none !important;
-    }
+    background: rgba(255, 255, 255, 0.2);
+    border: none !important;
+}
 
 #accordion2 > .ui-accordion-header{
         border: 1px solid white;
     }
 
-    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
-        border: 1px solid white;
-        font-weight: normal;
-        color: white;
-    }
+.ui-state-default, .ui-widget-content .ui-state-default, 
+.ui-widget-header .ui-state-default, .ui-button, 
+html .ui-button.ui-state-disabled:hover, 
+html .ui-button.ui-state-disabled:active {
+    border: 1px solid white;
+    font-weight: normal;
+    color: white;
+}
 
-    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active {
-        border: 1px solid white;
-        font-weight: normal;
-        color: white;
-        background: none;
+.ui-state-default, .ui-widget-content .ui-state-default, 
+.ui-widget-header .ui-state-default, .ui-button, 
+html .ui-button.ui-state-disabled:hover, 
+html .ui-button.ui-state-disabled:active {
+    border: 1px solid white;
+    font-weight: normal;
+    color: white;
+    background: none;
 }
 
 .ui-widget-content {
@@ -263,22 +281,21 @@ h4{
     
 
 #ui-id-3, #ui-id-4, #ui-id-5{
-        margin: .5em 0 0 0;
-    }
+    margin: .5em 0 0 0;
+}
 
 ::-webkit-scrollbar-track-piece{
-        display:none;
-    }
+    display:none;
+}
 
 ::-webkit-scrollbar-button{
-        display:none;
-    }
+    display:none;
+}
 
 ::-webkit-scrollbar{
-        height: 100%;
-    }
+    height: 100%;
+}
 
 ::-webkit-scrollbar-thumb{
-        background: rgba(255, 255, 255, 0.1);
-        
-    }
+    background: rgba(255, 255, 255, 0.1);     
+}
