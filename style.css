@@ -79,7 +79,7 @@
         overflow: visible;
         display: block;
         width: 100%;
-        height: 60%;
+        min-height: 60%;
         align-items: center;
         justify-content: center;
     }
@@ -93,6 +93,7 @@
     }
 
     canvas[style]{
+        min-height: 60%;
         position: static !important;
     }
 
@@ -158,7 +159,7 @@
         }
 
     footer{
-            position: absolute;
+            position: sticky;
             background-color: #E6D5BD;
             height: 1.5em;
             width: 100%;
@@ -169,7 +170,7 @@
     #map{
             position: static;
             width: 100%;
-            height: 60%;
+            min-height: 60%;
             align-items: center;
             justify-content: center;
         }
@@ -200,9 +201,11 @@
         border: 1px solid white;
     }
 
-    li{
+    ul, li{
+        padding: 0 0 0 .5em;
         text-align: left;
-        margin-left: .5em;
+        margin-top: 0;
+        list-style: none;
     }
 
 }
