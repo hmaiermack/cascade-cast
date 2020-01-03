@@ -159,7 +159,7 @@
         }
 
     footer{
-            position: sticky;
+            position: absolute;
             background-color: #E6D5BD;
             height: 1.5em;
             width: 100%;
