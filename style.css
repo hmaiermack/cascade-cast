@@ -67,6 +67,7 @@
     }
 
     #map{
+        position: sticky;
         overflow: visible;
         display: block;
         width: 100%;
