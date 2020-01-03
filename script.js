@@ -706,7 +706,7 @@ function makeForecast(dateInfo){
         let timeStamp = Object.keys(dateInfo.date[i][Object.keys(item)].time);
 
         timeStamp.forEach(item => {
-            $(`#day${day}`).append(`<ul id="${item}-${day}"><h4>Time: ${item}</h4></ul>`);
+            $(`#day${day}`).append(`<h4>Time: ${item}</h4><ul id="${item}-${day}"></ul>`);
         })
 
         let timeInfo = Object.entries(dateInfo.date[i][Object.keys(item)].time);
@@ -735,6 +735,7 @@ function makeAccordion(){
     $('#forecast2').accordion({
         icons: { "header": "ui-icon-caret-1-s", "activeHeader": "ui-icon-caret-1-n" }
     });
+    
 }
 
 $(function() {
