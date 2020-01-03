@@ -725,10 +725,10 @@ function makeForecast(dateInfo){
 }
 
 function makeAccordion(){
-    $('#accordion').accordion({
+    /*$('#accordion').accordion({
         heightStyle: 'content',
     });
-    $( "#accordion" ).accordion('refresh');
+    $( "#accordion" ).accordion('refresh');*/
     $('#accordion2').accordion({
         heightStyle: 'content'
     });
