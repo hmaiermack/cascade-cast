@@ -536,6 +536,7 @@ map.on('click', 'snotel', function (e) {
             let coordinates = e.features[0].geometry.coordinates.slice();             
             let longitude = coordinates[0];
             let latitude = coordinates[1];
+            $('#loading').removeClass('hidden');
             getSnotelResults(latitude, longitude);
             getForecast(latitude, longitude);
             $('#accordion-box').removeClass('hidden');
@@ -572,9 +573,12 @@ function getSnotelResults(latitude, longitude){
 //clears container and appends a section for SNOTEL weather data
 function displaySnotelResults(response){
     $('#info').empty();
-    $('#info').append(`<div><h1>${response[0].station_information.name}</h1>
+
+    $('#info').append(`
+    <div><h1>${response[0].station_information.name}</h1>
     <h2>Elevation: ${response[0].station_information.elevation}   
-    Location: ${response[0].station_information.location.lat}, ${response[0].station_information.location.lng}</h2></div>`);
+    Location: ${response[0].station_information.location.lat}, ${response[0].station_information.location.lng}</h2>
+    </div>`);
     $('#snotel').empty();
     $('#accordion').next('section').append(
     response[0].data.forEach(item => { 
@@ -598,7 +602,6 @@ function getForecast(latitude, longitude){
     const proxyurl = "https://cors-anywhere.herokuapp.com/";
     //weatherunlocked only accepts 3 decimal places for lat/long inputs
     let url = `//api.weatherunlocked.com/api/forecast/${latitude.toFixed(3)},${longitude.toFixed(3)}?app_id=${id}&app_key=${key}`;
-
     fetch(proxyurl + url)
     .then(response => {
         if (response.ok) {
@@ -696,6 +699,7 @@ function populateDateInfo(dateInfo, condensedTimeSeries){
 }
 
 function makeForecast(dateInfo){
+    $('#loading').addClass('hidden');
     $('#accordion2').empty();
     //creates second accordion for forecasting data
     dateInfo.date.forEach((item, i=0) => {
